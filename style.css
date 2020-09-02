@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+.card {
+  display: inline-block;
+  position: relative;
+  margin: 5px;
+  background: url('./image/bg.svg') no-repeat center / cover;
+  border: 7px solid #000;
+}
+.char {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Russo One, 'sans-serif';
+}
+.flip {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  overflow: hidden;
+}
+.flip::after {  
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.back-top {
+  transform: perspective(260px) rotateX(0deg);
+  transform-origin: 50% 50%;
+  backface-visibility: unset;
+  z-index: 1;
+}
+.back-bottom {
+  transform: perspective(260px) rotateX(180deg);
+  transform-origin: 50% 0;
+  backface-visibility: hidden;
+  z-index: 3;
+}
+.front-top {
+  transform: perspective(260px) rotateX(0deg);
+  transform-origin: 50% 100%;
+  backface-visibility: hidden;
+  z-index: 2;
+}
+.front-bottom {
+  transform: perspective(260px) rotateX(0deg);
+  transition: none;
+  transform-origin: 50% 50%;
+  backface-visibility: unset;
+  z-index: 2;
+}
+
+.active .back-bottom {
+  transform: perspective(260px) rotateX(0deg);
+  transition: transform 0.5s linear;
+}
+.active .front-top {
+  transform: perspective(260px) rotateX(-180deg);
+  transition: transform 0.5s linear;
+}
+
+@keyframes hide {
+  0%{
+    transform: perspective(260px) rotateX(180deg);
+  }
+  100% {
+    transform: perspective(260px) rotateX(0deg);
+  }
+}
+@keyframes show {
+  0%{
+    transform: perspective(260px) rotateX(0);
+  }
+  100% {
+    transform: perspective(260px) rotateX(-180deg);
+  }
+}
+.char {
+  color: #fff;
+  background: url('./image/card.jpg') no-repeat center / cover;
+}
+.back-top::after,
+.front-top::after {
+  background: linear-gradient(to bottom, rgba(0,0,0,.1) 95%, rgba(0,0,0,.35) 100%);
+}
+.back-bottom::after,
+.front-bottom::after {
+  background: linear-gradient(to top, rgba(0,0,0,.1) 95%, rgba(109,110,113,.35) 100%);
+}
+.back-top,
+.front-top {
+  -webkit-mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
+.back-bottom,
+.front-bottom {
+  -webkit-mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  mask-position: center;
+}
